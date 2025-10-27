@@ -23,16 +23,21 @@ export default function QueryProcessor(query: string): string {
     return String(result);
   }
 
-  if (query.includes("both a square and a cube")) {
+if (query.toLowerCase().includes("both a square and a cube")) {
   const matches = query.match(/\d+/g);
   if (!matches) return "";
+
   const numbers = matches.map(Number);
-  const results = numbers.filter(n => {
-    const root = Math.round(Math.pow(n, 1 / 6));
+  const results = numbers.filter((n) => {
+    const root = Math.round(Math.pow(n, 1 / 6)); // 6th root
     return Math.pow(root, 6) === n;
   });
-  return results.join(", ");
-  }
+
+  return results.length > 0
+    ? results.join(", ")
+    : "No numbers are both a square and a cube.";
+}
+
 
   if (query.includes("times") || query.includes("multiplied by")) {
     const nums = query.match(/\d+/g);
