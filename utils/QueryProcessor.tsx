@@ -91,7 +91,34 @@ export default function QueryProcessor(query: string): string {
     }
 
     return total.toString();
-}
+  }
+
+  if (
+    query.toLowerCase().includes("plus") ||
+    query.toLowerCase().includes("minus") ||
+    query.toLowerCase().includes("multiplied") ||
+    query.toLowerCase().includes("times") ||
+    query.toLowerCase().includes("divided")
+  ) {
+  // Replace words with math operators
+    let expr = query
+      .toLowerCase()
+      .replace(/[^0-9+\-*/(). ]/g, " ") // remove extra words
+      .replace(/\bplus\b/g, "+")
+      .replace(/\bminus\b/g, "-")
+      .replace(/\bmultiplied by\b/g, "*")
+      .replace(/\btimes\b/g, "*")
+      .replace(/\bdivided by\b/g, "/");
+
+    try {
+      // Safely evaluate the expression
+      const result = Function(`"use strict"; return (${expr});`)();
+      return String(result);
+    } catch {
+      return "Could not calculate expression.";
+    }
+  }
+
 
 
 
