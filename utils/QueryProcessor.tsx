@@ -119,6 +119,26 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.toLowerCase().includes("anagram of")) {
+  // Extract the target word (after "anagram of")
+    const targetMatch = query.match(/anagram of (\w+)/i);
+    if (!targetMatch) return "No target word found.";
+    const target = targetMatch[1].toLowerCase();
+
+  // Extract the candidate words (after the colon)
+    const listMatch = query.split(":")[1];
+    if (!listMatch) return "No candidate words found.";
+    const candidates = listMatch.split(",").map(w => w.trim().toLowerCase());
+
+  // Function to sort letters
+    const sortLetters = (word: string) => word.split("").sort().join("");
+
+    const anagrams = candidates.filter(word => sortLetters(word) === sortLetters(target));
+
+    return anagrams.length > 0 ? anagrams.join(", ") : "No anagrams found.";
+  }
+
+
 
 
 
