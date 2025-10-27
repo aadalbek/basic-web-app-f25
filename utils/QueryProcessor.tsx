@@ -50,5 +50,23 @@ export default function QueryProcessor(query: string): string {
     return String(Number(nums[0]) * Number(nums[1]));
   }
 
+  if (query.toLowerCase().includes("power of")) {
+    const nums = query.match(/\d+/g);
+    if (!nums || nums.length < 2) {
+      return "Could not find base and exponent.";
+    }
+
+    const [base, exponent] = nums.map(Number);
+    const result = Math.pow(base, exponent);
+
+  // Handle very large numbers safely (to avoid 'Infinity')
+    if (!isFinite(result)) {
+      return "Result is too large to represent.";
+    }
+
+    return result.toString();
+  }
+
+
   return "";
 }
