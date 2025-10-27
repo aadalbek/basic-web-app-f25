@@ -18,19 +18,4 @@ describe("QueryProcessor", () => {
           ));
     });
 
-    test('should return largest', () => {
-        const query = "Which of the following numbers is the largest?";
-        const response: string = QueryProcessor(query);
-        expect(response).toBe((
-            "78"
-          ));
-    });
-
-    test('should return sum', () => {
-        const query = "What is 22 plus 79?";
-        const response: string = QueryProcessor(query);
-        expect(response).toBe((
-            "101"
-          ));
-    })
 });

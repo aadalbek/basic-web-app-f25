@@ -16,11 +16,16 @@ export default function QueryProcessor(query: string): string {
     return String(largest);
   }
 
-  if (query.includes("plus")) {
+  if (query.toLowerCase().includes("plus")) {
     const nums = query.match(/\d+/g);
-    if (!nums || nums.length < 2) return "";
-    const result = Number(nums[0]) + Number(nums[1]);
-    return String(result);
+    if (!nums || nums.length < 2) {
+      return "Could not find two numbers to add.";
+   }
+
+    const numbers = nums.map(Number);
+    const result = numbers.reduce((sum, n) => sum + n, 0);
+
+    return result.toString();
   }
 
   if (query.toLowerCase().includes("both a square and a cube")) {
