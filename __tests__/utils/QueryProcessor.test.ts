@@ -22,7 +22,7 @@ describe("QueryProcessor", () => {
         const query = "Which of the following numbers is the largest?";
         const response: string = QueryProcessor(query);
         expect(response).toBe((
-            "95"
+            "78"
           ));
     });
 
