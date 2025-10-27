@@ -8,23 +8,36 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
-  if (lower.includes("plus")) {
-    // Extract numbers from the query
-    const numbers = query.match(/\d+/g);
-    if (numbers && numbers.length >= 2) {
-      const sum = Number(numbers[0]) + Number(numbers[1]);
-      return sum.toString();
-    }
-    return "Could not find two numbers to add.";
+  if (query.includes("largest")) {
+    const matches = query.match(/-?\d+/g);
+    if (!matches) return "";
+    const numbers = matches.map(Number);
+    const largest = Math.max(...numbers);
+    return String(largest);
   }
 
-  if (lower.includes("largest")) {
-    const numbers = query.match(/\d+/g);
-    if (numbers && numbers.length > 0) {
-      const largest = Math.max(...numbers.map(Number));
-      return largest.toString();
-    }
-    return "Could not find any numbers to compare.";
+  if (query.includes("plus")) {
+    const nums = query.match(/\d+/g);
+    if (!nums || nums.length < 2) return "";
+    const result = Number(nums[0]) + Number(nums[1]);
+    return String(result);
+  }
+
+  if (query.includes("both a square and a cube")) {
+  const matches = query.match(/\d+/g);
+  if (!matches) return "";
+  const numbers = matches.map(Number);
+  const results = numbers.filter(n => {
+    const root = Math.round(Math.pow(n, 1 / 6));
+    return Math.pow(root, 6) === n;
+  });
+  return results.join(", ");
+  }
+
+  if (query.includes("times") || query.includes("multiplied by")) {
+    const nums = query.match(/\d+/g);
+    if (!nums || nums.length < 2) return "";
+    return String(Number(nums[0]) * Number(nums[1]));
   }
 
   return "";
