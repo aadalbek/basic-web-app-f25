@@ -18,11 +18,11 @@ describe("QueryProcessor", () => {
           ));
     });
 
-    test('should return name', () => {
-        const query = "What is your name?";
+    test('should return largest', () => {
+        const query = "Which of the following numbers is the largest?";
         const response: string = QueryProcessor(query);
         expect(response).toBe((
-            "A"
+            "95"
           ));
     })
 });
