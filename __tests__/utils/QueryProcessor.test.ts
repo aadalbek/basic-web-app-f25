@@ -24,5 +24,13 @@ describe("QueryProcessor", () => {
         expect(response).toBe((
             "95"
           ));
+    });
+
+    test('should return sum', () => {
+        const query = "What is 22 plus 79?";
+        const response: string = QueryProcessor(query);
+        expect(response).toBe((
+            "101"
+          ));
     })
 });
